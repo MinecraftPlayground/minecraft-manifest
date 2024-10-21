@@ -87,7 +87,7 @@ const repositoryName = actionsGithub.context.repo.repo;
     actionsCore.setOutput('version-previous-snapshot', previousManifest?.snapshot);
   }
   
-  if (previousArtifact.expired) {
+  if (previousArtifact?.expired) {
     actionsCore.info('Previous artifact is expired.');
   }
 
