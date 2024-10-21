@@ -37,9 +37,6 @@ outputs:
   version-current-snapshot-url:
     description: 'The download url of the snapshot version.json file.'
 
-  version-current-raw-json:
-    description: 'The raw json content of the current version manifest.'
-
   version-previous-release:
     description: 'The previous Minecraft release version from artifact.'
 

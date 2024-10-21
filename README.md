@@ -37,7 +37,6 @@ A big advantage of this action compared to other actions is that no additional f
     echo "Release version.json URL: ${{steps.version-change.outputs.version-current-release-url}}"
     echo "Current snapshot version: ${{steps.version-change.outputs.version-current-snapshot}}"
     echo "Snapshot version.json URL: ${{steps.version-change.outputs.version-current-snapshot-url}}"
-    echo "Current raw JSON: ${{steps.version-change.outputs.version-current-raw-json}}"
 ```
 
 | Parameter                      |  Datatype | Description                                           |
@@ -49,7 +48,6 @@ A big advantage of this action compared to other actions is that no additional f
 | `version-current-release-url`  | `string`  | The download url of the release version.json file.    |
 | `version-current-snapshot`     | `string`  | The current Minecraft snapshot version fetched        |
 | `version-current-snapshot-url` | `string`  | The download url of the snapshot version.json file.   |
-| `version-current-raw-json`     | `string`  | The raw JSON content of the version manifest.         |
 | `version-previous-release`     | `string`  | The previous Minecraft release version from artifact  |
 | `version-previous-snapshot`    | `string`  | The previous Minecraft snapshot version from artifact |
 
@@ -88,7 +86,6 @@ jobs:
           echo "Release version.json URL: ${{steps.version-change.outputs.version-current-release-url}}"
           echo "Current snapshot version: ${{steps.version-change.outputs.version-current-snapshot}}"
           echo "Snapshot version.json URL: ${{steps.version-change.outputs.version-current-snapshot-url}}"
-          echo "Current raw JSON: ${{steps.version-change.outputs.version-current-raw-json}}"
 
 
 ```
