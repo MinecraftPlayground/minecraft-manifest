@@ -25,7 +25,9 @@ jobs:
           deno-version: v1.x
 
       - name: 'Build dist/ Directory'
-        run: deno task build
+        run: |
+          deno task install
+          deno task build
 
       - name: 'Compare Directories'
         id: 'diff'
