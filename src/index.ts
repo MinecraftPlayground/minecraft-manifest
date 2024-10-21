@@ -99,7 +99,7 @@ const repositoryName = actionsGithub.context.repo.repo;
   await artifactClient.uploadArtifact(
     'release@1.21.1',
     [],
-    ''
+    '/'
   )
   await artifactClient.uploadArtifact(
     'snapshot@1.21.2-rc2',
