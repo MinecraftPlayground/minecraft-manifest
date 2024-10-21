@@ -98,7 +98,7 @@ const repositoryName = actionsGithub.context.repo.repo;
   
   actionsCore.startGroup('Uploading new current artifact ...');
   await fs.writeFile(
-    '/empty',
+    '/empty.txt',
     ''
   ).catch((reason) => {
     actionsCore.info('Error while executing "writeFile":');
@@ -106,7 +106,7 @@ const repositoryName = actionsGithub.context.repo.repo;
   });
   await artifactClient.uploadArtifact(
     'release@1.21.1',
-    ['/empty'],
+    ['/empty.txt'],
     '/'
   )
   await artifactClient.uploadArtifact(
