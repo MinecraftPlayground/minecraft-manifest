@@ -39,4 +39,3 @@ jobs:
           echo "version-current-release-url: ${{steps.test-action.outputs.version-current-release-url}}"
           echo "version-current-snapshot: ${{steps.test-action.outputs.version-current-snapshot}}"
           echo "version-current-snapshot-url: ${{steps.test-action.outputs.version-current-snapshot-url}}"
-          echo "version-current-raw-json: ${{fromJSON(steps.version-change.outputs.version-current-raw-json)}}"
