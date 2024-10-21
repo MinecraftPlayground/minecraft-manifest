@@ -55,8 +55,6 @@ const repositoryName = actionsGithub.context.repo.repo;
     actionsCore.info(`- Expires at: ${new Date(previousArtifact.created_at ?? '').toLocaleString()}`);
     actionsCore.info(`- Download: ${previousArtifact.archive_download_url}`);
 
-    actionsCore.endGroup();
-
     const versionRelaseChanged = previousManifest?.release !== currentManifest.latest.release;
     const versionSnapshotChanged = previousManifest?.snapshot !== currentManifest.latest.snapshot;
     const versionChanged = versionRelaseChanged || versionSnapshotChanged;
@@ -69,7 +67,7 @@ const repositoryName = actionsGithub.context.repo.repo;
   } else {
     actionsCore.info('No previous artifact found.');
   }
-
+  
   actionsCore.endGroup();
 
   actionsCore.startGroup('Creating empty file ...');
