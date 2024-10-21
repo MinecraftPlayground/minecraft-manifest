@@ -5,9 +5,9 @@
 
 A GitHub action to get infos about the minecraft manifest version.
 
-This action fetches the latest release and snapshot version from the [piston-meta.mojang.com API](https://piston-meta.mojang.com/mc/game/version_manifest_v2.json) and compares that with a version, stored in an artifact, from a previous workflow run.
+This action fetches the latest release and snapshot version from the [piston-meta.mojang.com API](https://piston-meta.mojang.com/mc/game/version_manifest_v2.json) and compares that with a version, stored in an artifact name, from a previous workflow run.
 
-A big advantage of this action compared to other actions is that no additional files are needed within the repository to cache the latest version. All necessary information is stored in artifacts.
+A big advantage of this action compared to other actions is that no additional files are needed within the repository to cache the latest version. All necessary information is stored in artifact names.
 
 ## Input
 ```yml
@@ -37,6 +37,7 @@ A big advantage of this action compared to other actions is that no additional f
     echo "Release version.json URL: ${{steps.version-change.outputs.version-current-release-url}}"
     echo "Current snapshot version: ${{steps.version-change.outputs.version-current-snapshot}}"
     echo "Snapshot version.json URL: ${{steps.version-change.outputs.version-current-snapshot-url}}"
+    echo "Current raw JSON: ${{steps.version-change.outputs.version-current-raw-json}}"
 ```
 
 | Parameter                      |  Datatype | Description                                           |
@@ -48,6 +49,7 @@ A big advantage of this action compared to other actions is that no additional f
 | `version-current-release-url`  | `string`  | The download url of the release version.json file.    |
 | `version-current-snapshot`     | `string`  | The current Minecraft snapshot version fetched        |
 | `version-current-snapshot-url` | `string`  | The download url of the snapshot version.json file.   |
+| `version-current-raw-json`     | `string`  | The raw JSON content of the version manifest.         |
 | `version-previous-release`     | `string`  | The previous Minecraft release version from artifact  |
 | `version-previous-snapshot`    | `string`  | The previous Minecraft snapshot version from artifact |
 
@@ -86,6 +88,7 @@ jobs:
           echo "Release version.json URL: ${{steps.version-change.outputs.version-current-release-url}}"
           echo "Current snapshot version: ${{steps.version-change.outputs.version-current-snapshot}}"
           echo "Snapshot version.json URL: ${{steps.version-change.outputs.version-current-snapshot-url}}"
+          echo "Current raw JSON: ${{steps.version-change.outputs.version-current-raw-json}}"
 
 
 ```
