@@ -3,10 +3,9 @@ import * as actionsGithub from '@actions/github';
 import * as actionsArtifact from '@actions/artifact';
 import * as fs from 'fs/promises';
 
-import { fetchManifestData } from './fetch_manifest_data.ts';
-import { getArtifacts } from './get_artifacts.ts';
-import { readManifestFile } from './read_manifest_file.ts';
-import { writeManifestFile } from './write_manifest_file.ts';
+import fetchManifestData from './fetch_manifest_data.ts';
+import getArtifacts from './get_artifacts.ts';
+import parseArtifactName from './parse_artifact_name.ts';
 
 
 const artifactClient = new actionsArtifact.DefaultArtifactClient();
@@ -38,17 +37,17 @@ const repositoryName = actionsGithub.context.repo.repo;
   const artifacts = await getArtifacts(
     githubToken,
     repositoryOwner,
-    repositoryName,
-    '1.21.1;1.21.2-rc2'
+    repositoryName
   );
 
   actionsCore.info(`Found ${artifacts.length} artifact${artifacts.length === 1 ? '' : 's'}.`);
 
-  const previousArtifact = artifacts[0];
+  const previousArtifact = artifacts.filter((artifact) => artifact.name.startsWith('manifest@'))[0];
 
-  if (previousArtifact && !previousArtifact.expired) {
+  if (previousArtifact) {
+    const previousManifest = parseArtifactName(previousArtifact.name);
     actionsCore.info('Previous artifact:');
-    actionsCore.info(`- Name: ${previousArtifact.name}`);
+    actionsCore.info(`- Name: "${previousArtifact.name}" (release: ${previousManifest?.release}; snapshot: ${previousManifest?.snapshot})`);
     actionsCore.info(`- ID: ${previousArtifact.id}`);
     actionsCore.info(`- Node ID: ${previousArtifact.node_id}`);
     actionsCore.info(`- Workflow ID: ${previousArtifact.workflow_run?.id}`);
@@ -56,25 +55,6 @@ const repositoryName = actionsGithub.context.repo.repo;
     actionsCore.info(`- Expires at: ${new Date(previousArtifact.created_at ?? '').toLocaleString()}`);
     actionsCore.info(`- Download: ${previousArtifact.archive_download_url}`);
 
-    actionsCore.endGroup();
-
-    actionsCore.startGroup('Downloading previous artifact ...');
-    await artifactClient.downloadArtifact(
-      previousArtifact.id,
-      {
-        findBy: {
-          repositoryOwner,
-          repositoryName,
-          token: githubToken,
-          workflowRunId: previousArtifact.workflow_run?.id ?? 0
-        },
-        path: './artifacts'
-      }
-    );
-    actionsCore.endGroup();
-
-    actionsCore.startGroup('Reading previous manifest ...');
-    const previousManifest = await readManifestFile('./artifacts/manifest.json');
     actionsCore.endGroup();
 
     const versionRelaseChanged = previousManifest?.release !== currentManifest.latest.release;
@@ -92,11 +72,7 @@ const repositoryName = actionsGithub.context.repo.repo;
     actionsCore.info('Previous artifact is expired.');
   }
 
-  actionsCore.startGroup('Writing new current manifest ...');
-  await writeManifestFile('./artifacts/manifest.json', currentManifest.latest);
-  actionsCore.endGroup();
-  
-  actionsCore.startGroup('Uploading new current artifact ...');
+  actionsCore.startGroup('Creating empty file ...');
   await fs.writeFile(
     './empty',
     ''
@@ -104,15 +80,13 @@ const repositoryName = actionsGithub.context.repo.repo;
     actionsCore.info('Error while executing "writeFile":');
     actionsCore.error(reason);
   });
+  actionsCore.endGroup();
+  
+  actionsCore.startGroup('Uploading new current artifacts ...');
   await artifactClient.uploadArtifact(
-    'release@1.21.1',
+    `manifest@${currentManifest.latest.release};${currentManifest.latest.snapshot}`,
     ['./empty'],
     './'
-  )
-  await artifactClient.uploadArtifact(
-    'snapshot@1.21.2-rc2',
-    ['./artifacts/manifest.json'],
-    './artifacts'
   )
   actionsCore.endGroup();
 })()
