@@ -30,6 +30,7 @@ const repositoryName = actionsGithub.context.repo.repo;
   actionsCore.setOutput('version-current-release-url', releaseVersion?.url);
   actionsCore.setOutput('version-current-snapshot', currentManifest.latest.snapshot);
   actionsCore.setOutput('version-current-snapshot-url', snapshotVersion?.url);
+  actionsCore.setOutput('version-current-raw-json', JSON.stringify(currentManifest));
   
   actionsCore.startGroup('Getting artifacts ...');
   actionsCore.info('Searching existing artifacts ...');
