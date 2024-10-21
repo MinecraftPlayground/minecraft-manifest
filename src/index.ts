@@ -98,8 +98,8 @@ const repositoryName = actionsGithub.context.repo.repo;
   actionsCore.startGroup('Uploading new current artifact ...');
   await artifactClient.uploadArtifact(
     'release@1.21.1',
-    ['./artifacts/manifest.json'],
-    './artifacts'
+    [],
+    ''
   )
   await artifactClient.uploadArtifact(
     'snapshot@1.21.2-rc2',
