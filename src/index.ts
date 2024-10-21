@@ -1,6 +1,7 @@
 import * as actionsCore from '@actions/core';
 import * as actionsGithub from '@actions/github';
 import * as actionsArtifact from '@actions/artifact';
+import * as fs from 'fs/promises';
 
 import { fetchManifestData } from './fetch_manifest_data.ts';
 import { getArtifacts } from './get_artifacts.ts';
@@ -96,9 +97,16 @@ const repositoryName = actionsGithub.context.repo.repo;
   actionsCore.endGroup();
   
   actionsCore.startGroup('Uploading new current artifact ...');
+  await fs.writeFile(
+    '/empty',
+    ''
+  ).catch((reason) => {
+    actionsCore.info('Error while executing "writeFile":');
+    actionsCore.error(reason);
+  });
   await artifactClient.uploadArtifact(
     'release@1.21.1',
-    [],
+    ['/empty'],
     '/'
   )
   await artifactClient.uploadArtifact(
