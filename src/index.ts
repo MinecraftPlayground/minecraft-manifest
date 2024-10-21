@@ -66,11 +66,11 @@ const repositoryName = actionsGithub.context.repo.repo;
     actionsCore.setOutput('version-snapshot-changed', versionSnapshotChanged);
     actionsCore.setOutput('version-previous-release', previousManifest?.release);
     actionsCore.setOutput('version-previous-snapshot', previousManifest?.snapshot);
+  } else {
+    actionsCore.info('No previous artifact found.');
   }
-  
-  if (previousArtifact?.expired) {
-    actionsCore.info('Previous artifact is expired.');
-  }
+
+  actionsCore.endGroup();
 
   actionsCore.startGroup('Creating empty file ...');
   await fs.writeFile(
