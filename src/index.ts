@@ -38,7 +38,7 @@ const repositoryName = actionsGithub.context.repo.repo;
     githubToken,
     repositoryOwner,
     repositoryName,
-    '{"test": "abc"}'
+    '1.21.1;1.21.2-rc2'
   );
 
   actionsCore.info(`Found ${artifacts.length} artifact${artifacts.length === 1 ? '' : 's'}.`);
@@ -97,7 +97,7 @@ const repositoryName = actionsGithub.context.repo.repo;
   
   actionsCore.startGroup('Uploading new current artifact ...');
   await artifactClient.uploadArtifact(
-    '{"test": "abc"}',
+    '1.21.1;1.21.2-rc2',
     ['./artifacts/manifest.json'],
     './artifacts'
   )
