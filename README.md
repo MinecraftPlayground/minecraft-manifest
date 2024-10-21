@@ -1,7 +1,7 @@
 # Minecraft Manifest
 
-[![Check Transpiled JavaScript](https://github.com/Datapack-Registry/minecraft-manifest/actions/workflows/check_dist.yml/badge.svg)](https://github.com/Datapack-Registry/minecraft-manifest/actions/workflows/check_dist.yml)
-[![Test Latest Build Action](https://github.com/Datapack-Registry/minecraft-manifest/actions/workflows/test_action.yml/badge.svg)](https://github.com/Datapack-Registry/minecraft-manifest/actions/workflows/test_action.yml)
+[![Check Transpiled JavaScript](https://github.com/MinecraftPlayground/minecraft-manifest/actions/workflows/check_dist.yml/badge.svg)](https://github.com/MinecraftPlayground/minecraft-manifest/actions/workflows/check_dist.yml)
+[![Test Latest Build Action](https://github.com/MinecraftPlayground/minecraft-manifest/actions/workflows/test_action.yml/badge.svg)](https://github.com/MinecraftPlayground/minecraft-manifest/actions/workflows/test_action.yml)
 
 A GitHub action to get infos about the minecraft manifest version.
 
@@ -13,7 +13,7 @@ A big advantage of this action compared to other actions is that no additional f
 ```yml
 - name: 'Test for version change'
   id: 'version-change'
-  uses: Datapack-Registry/minecraft-manifest@main
+  uses: MinecraftPlayground/minecraft-manifest@main
   with:
     token: ${{secrets.GITHUB_TOKEN}}
     manifest-url: 'https://piston-meta.mojang.com/mc/game/version_manifest_v2.json'
@@ -71,7 +71,7 @@ jobs:
       
       - name: 'Test for version change'
         id: 'version-change'
-        uses: Datapack-Registry/minecraft-manifest@main
+        uses: MinecraftPlayground/minecraft-manifest@main
         with:
           token: ${{secrets.GITHUB_TOKEN}} // <- Important!
       
