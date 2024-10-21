@@ -45,7 +45,7 @@ const repositoryName = actionsGithub.context.repo.repo;
 
   const previousArtifact = artifacts[0];
 
-  if (previousArtifact) {
+  if (previousArtifact && !previousArtifact.expired) {
     actionsCore.info('Previous artifact:');
     actionsCore.info(`- Name: ${previousArtifact.name}`);
     actionsCore.info(`- ID: ${previousArtifact.id}`);
