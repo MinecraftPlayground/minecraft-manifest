@@ -23,7 +23,7 @@ jobs:
       
       - name: 'Test Action'
         id: 'test-action'
-        uses: Datapack-Registry/minecraft-manifest@main
+        uses: MinecraftPlayground/minecraft-manifest@main
         with:
           token: ${{secrets.GITHUB_TOKEN}}
       
