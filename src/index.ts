@@ -87,6 +87,10 @@ const repositoryName = actionsGithub.context.repo.repo;
     actionsCore.setOutput('version-previous-snapshot', previousManifest?.snapshot);
   }
   
+  if (previousArtifact.expired) {
+    actionsCore.info('Previous artifact is expired.');
+  }
+
   actionsCore.startGroup('Writing new current manifest ...');
   await writeManifestFile('./artifacts/manifest.json', currentManifest.latest);
   actionsCore.endGroup();
