@@ -66,6 +66,10 @@ const repositoryName = actionsGithub.context.repo.repo;
     actionsCore.setOutput('version-previous-snapshot', previousManifest?.snapshot);
   } else {
     actionsCore.info('No previous artifact found.');
+
+    actionsCore.setOutput('version-changed', true);
+    actionsCore.setOutput('version-release-changed', true);
+    actionsCore.setOutput('version-snapshot-changed', true);
   }
   
   actionsCore.endGroup();
