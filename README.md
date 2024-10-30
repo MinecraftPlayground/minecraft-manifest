@@ -73,7 +73,7 @@ jobs:
         id: 'version-change'
         uses: MinecraftPlayground/minecraft-manifest@main
         with:
-          token: ${{secrets.GITHUB_TOKEN}} // <- Important!
+          token: ${{secrets.GITHUB_TOKEN}} # <- Important!
       
       - name: 'Print output'
         run: |
